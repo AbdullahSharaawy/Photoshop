@@ -30,6 +30,7 @@ void BlackAndWhite(string n_image);
 void by_90(string n_image);
 void FlippedHorizontal(string n_image);
 void FlippedVertical(string  n_image);
+void Flip(string n_image);
 Image inverse(Image n_image);
 void InverseImage(string n_image);
 Image GrayscaleConversion(string  n_image);
@@ -47,6 +48,7 @@ void rotat_by180(string m_image);
 Image by_90(Image n_image);
 Image by_270(Image n_image);
 void ret_by270(string n_image);
+void Rotation(string n_image);
 void Crop_( string n_image);
 Image fancy_frame(Image image);
 void Add_fancy(string n_image);
@@ -54,10 +56,15 @@ Image simple_frame(Image n_image);
 Image white_frame(Image n_image);
 void Add_whiteframe(string n_image);
 void Add_simple(string n_image);
+void Frame(string n_image);
 Image bluer_Image(Image n_image);
 void bluring(string n_image);
 Image purple(Image n_image);
 void purple_Image(string n_image);
+Image x_ray(string n_image);
+void X_Ray( string n_image);
+Image TV(string n_image);
+void tv( string n_image);
 void StartPhotoshop();
 
 int main()
@@ -73,24 +80,22 @@ void StartPhotoshop()
     //read name of file from the user
     cout<<"what do you want like to do ! \n";
     cout<<"1] Black and white \n";
-    cout<<"2] flipped vertical \n";
-    cout<<"3] flipped horizontal \n";
-    cout<<"4] Grayscale \n"<<"5] Darken and lighten \n";
-    cout<<"6] Inverse \n";
-    cout<<"7] Resize \n";
-    cout<<"8] Crop \n";
-    cout <<"9]Rotate by 90 degrees\n";
-    cout <<"10]Rotate by 180 degrees\n";
-    cout <<"11]Rotate by 270 degrees\n";
-    cout <<"12]Add a simple frame \n";
-    cout <<"13]Add a white frame \n";
-    cout <<"14]Add a fancy frame \n";
-    cout <<"15]Bluring the photo \n";
-    cout <<"16]purple\n";
-    cout<<"17] Exist \n";
+    cout<<"2] Flip \n";
+    cout<<"3] Grayscale \n";
+    cout<<"4] Darken and Lighiten\n";
+    cout<<"5] Inverse \n";
+    cout<<"6] Resize \n";
+    cout<<"7] Crop \n";
+    cout <<"8] Rotate the photo\n";
+    cout <<"9] Add a frame\n";
+    cout <<"10] Bluring the photo \n";
+    cout <<"11] Purple\n";
+    cout <<"12] Television Screen\n";
+    cout <<"13] X-Ray\n";
+    cout<<"16] Exist \n";
     do
     {
-        cout<<"please enter a number from 1 to 17 ! ";
+        cout<<"please enter a number from 1 to 13 ! ";
         cin>>choise;
         //input your choise agian if it is not valid
         if(cin.fill())
@@ -99,58 +104,50 @@ void StartPhotoshop()
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
         }
-    } while (choise !=1 && choise !=2 && choise !=3 && choise !=4 && choise !=5 && choise !=6 && choise !=7 && choise !=8 && choise !=9 &&choise!=10&&choise!=11&&choise!=12&&choise!=13&&choise!=14&&choise!=15&&choise!=16&&choise!=17);
+    } while (choise !=1 && choise !=2 && choise !=3 && choise !=4 && choise !=5 && choise !=6 && choise !=7 && choise !=8 && choise !=9 &&choise!=10&&choise!=11&&choise!=12&&choise!=13 &&choise!=14&&choise!=15&&choise!=16);
     switch (choise)
     {
         case 1:
             BlackAndWhite(n_image);
             break;
         case 2:
-            FlippedVertical( n_image);
+            Flip( n_image);
             break;
         case 3:
-            FlippedHorizontal( n_image);
-            break;
-        case 4:
             GrayScale(n_image);
             break;
-        case 5:
+        case 4:
             DarkenAndLighiten(n_image);
             break;
-        case 6:
+        case 5:
             InverseImage(n_image);
             break;
             //exist from the program
-        case 7:
+        case 6:
             change_diminsions(ReadOneDiminsion("please enter the new width! ") , ReadOneDiminsion("please enter the new height! ") ,  n_image);
             break;
-        case 8:
+        case 7:
             Crop_(n_image);
             break;
+        case 8: 
+            Rotation(n_image);
+            break;
         case 9:
-            by_90(n_image);
+            Frame( n_image);
             break;
-        case 10 :
-            rotat_by180(n_image);
-            break;
-        case 11:
-            ret_by270(n_image);
-            break;
-        case 12:
-            Add_simple(n_image);
-        case 13:
-            Add_whiteframe(n_image);
-            break;
-        case 14 :
-            Add_fancy(n_image);
-            break;
-        case 15:
+        case 10:
             bluring(n_image);
             break;
-        case 16:
+        case 11:
             purple_Image(n_image);
             break;
-        case 17:
+        case 12:
+            tv(n_image);
+            break;
+        case 13:
+            X_Ray(n_image);
+            break;
+        case 16:
             return;
             break;
     }
@@ -647,7 +644,7 @@ void Add_fancy(string n_image)
     Save(n_image, fancy_frame(n_image));
 }
 Image simple_frame(Image n_image) {
-    int color;
+    string color;
     cout << "Choose a color for the simple frame:\n"
          << "1. Red\n"
          << "2. Green\n"
@@ -655,21 +652,21 @@ Image simple_frame(Image n_image) {
          << "4. Black\n"
          << "Enter your choice: ";
     cin >> color;
-    while (color!=1&&color!=2&&color!=3&&color!=4)
+    while (color!="1"&&color!="2"&&color!="3"&&color!="4")
     {
-        cout <<"Invalid choice take a number from 1,2,3or4!\n";
+        cout <<"Invalid choice take a number from 1,2,3 or4!\n";
         cin>>color;
     }
     int frameWidth = (n_image.width > 800) ? 100 : 20;
     int color_frame ;
     int color2=1;
-    if (color == 1)
+    if (color == "1")
         color_frame = 0;// red frame
-    else if (color == 2)
+    else if (color == "2")
         color_frame = 1; // green frame
-    else if (color == 3)
+    else if (color == "3")
         color_frame = 2; // blue frame
-    else if (color == 4) {
+    else if (color == "4") {
         color_frame = 0;// black frame
         color2=0;}
     Image image2(n_image.width , n_image.height ); // Increase by 20 on each side for the frame
@@ -746,3 +743,136 @@ void change_diminsions(float n_width , float n_height , string n_image)
     Save(n_image,Resize( n_width ,  n_height ,  n_image));
 }
 
+void Rotation(string n_image)
+{
+    string choice;
+            cout << "1]Rotate by 90 degrees\n";
+            cout << "2]Rotate by 180 degrees\n";
+            cout << "3]Rotate by 270 degrees\n";
+            cin >> choice;
+            while (choice != "1" && choice != "2" && choice != "3") {
+                cout << "invalid enter 1 , 2 or 3\n";
+                cin >> choice;
+            }
+            switch (stoi(choice)) {
+                case 1:
+                    by_90(n_image);
+                    break;
+
+                case 2:
+                    rotat_by180(n_image);
+                    break;
+                case 3:
+                    ret_by270(n_image);
+                    break;}
+}
+void Frame(string n_image)
+{
+    string  n;
+            cout <<"1]Add a simple frame \n";
+            cout <<"2]Add a white frame \n";
+            cout <<"3]Add a fancy frame \n";
+            cin>>n;
+            while (n!="1"&&n!="2"&&n!="3")
+            {
+                cout <<"invalid enter 1 , 2 or 3\n";
+                cin>>n;
+            }
+            switch (stoi(n)) {
+                case 1:
+                    Add_simple(n_image);
+                    break;
+                case 2:
+                    Add_whiteframe(n_image);
+                    break;
+                case 3:
+                    Add_fancy(n_image);
+                    break;
+            }
+}
+void Flip(string n_image)
+{
+    string choice;
+    cout<<"1] fliped vertical\n";
+    cout<<"2] fliped horizontal\n";
+    cin>>choice;
+    while (choice!="1"&&choice!="2")
+            {
+                cout <<"invalid enter 1 , 2 \n";
+                cin>>choice;
+            }
+            switch (stoi(choice)) {
+                case 1:
+                    FlippedVertical(n_image);
+                    break;
+                case 2:
+                    FlippedHorizontal(n_image);
+                    break;
+            }
+    
+    
+    
+}
+Image x_ray(string n_image)
+{
+    // Open the image
+  Image image(n_image);
+  // Create a new image for the adjusted result
+  Image new_image(image.width, image.height);
+
+  
+  // Iterate through each pixel and adjust brightness
+  for (int i = 0; i < image.width; i++) {
+    for (int j = 0; j < image.height; j++) {
+      for (int channel = 0; channel < 3; channel++) {
+        if(channel==0)
+        new_image(i,j,channel)=255;
+        if(channel==1)
+        new_image(i,j,channel)=-image(i,j,channel)+255;
+        if(channel==2)
+        new_image(i,j,channel)=-image(i,j,channel)+255;
+      }
+    }
+  }
+return new_image;
+}
+void X_Ray( string n_image)
+{
+    Save(n_image,x_ray(   n_image));
+}
+Image TV(string n_image)
+{
+    int counter=2;
+    // Open the image
+  Image image(n_image);
+  // Create a new image for the adjusted result
+  Image new_image(image.width, image.height);
+
+  
+  // Iterate through each pixel and adjust brightness
+  for (int i = 0; i < image.width; i++) {
+    for (int j = 0; j < image.height; j++) {
+        if(j%counter!=0 ){
+      for (int channel = 0; channel < 3; channel++) {
+        if(channel==0)
+        new_image(i,j,channel)=image(i,j,channel)/2;
+        else if(channel==1)
+        new_image(i,j,channel)=image(i,j,channel)/2;
+        else if(channel==2)
+        new_image(i,j,channel)=image(i,j,channel)/2;
+      }
+      
+        }
+        else{
+        for (int channel = 0; channel < 3; channel++) {
+new_image(i,j,channel)=image(i,j,channel);
+        }
+        }
+      }
+    }
+ return new_image; 
+}
+void tv( string n_image)
+{
+    Save(n_image,TV(   n_image));
+}
