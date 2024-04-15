@@ -1,16 +1,22 @@
-//  Purpose: this the photoshop able to do these the operations on the iamge: flip , gray scale , black and white , invers , darken and light
+//  Purpose: this the photoshop able to do these the operations on the iamge: flip , gray scale , black and white , invers , darken, light, resize, crop, rotation, bluring, purble, x-ray, television screen, merge and edge edections. 
 // Author 1: Ahmed Magdy Hassan Ali , 20230030 , Section 19
 // Author 2: Abdullah Adel Eid Sharaawy , 20230522 , Section 20
 // Author 3: Zeyad Elsayed mahmoud youssef , 20230153 , Section 20
 // Emails: abdallahsharawy200@gmail.com , zsyd48827@gmail.com , ahmed900900gh7n10@gmail.com
-// ID1:20230030-he did these function: GrayscaleConversion() and DarkenandLightenImage()
+// ID1:20230030-he did these function: GrayscaleConversion() ,DarkenandLightenImage(),  MergeImages(),EdgesDetection(string n_image) and detectedge(string n_image).
 /* ID2:20230522-he did these functions:ReadFileName(),convert_to_BlackAndWhite(string  n_image), Convert_to_FlippedVertical(string  n_image),
 Convert_to_FlippedHorizontal(string  n_image), Save(string n_image,Image image),BlackAndWhite(string n_image),FlippedHorizontal(string n_image),
-FlippedVertical(string  n_image);
+FlippedVertical(string  n_image), x_ray(string n_image), X_Ray( string n_image), TV(string n_image), tv( string n_image),
+ReadOneDiminsion(string message), Resize(float n_width , float n_height , string  n_image), change_diminsions(float n_width , float n_height , string n_image),
+ IsValid_index(int index , int diminsion), ReadIndex(string message , int diminsion) and  Crop(string n_image).
 */
-// ID3:20230153-he did these funcion: invers(Image n_image) and InversImage(string n_image)
+/* ID3:20230153-he did these funcions: invers(Image n_image), InversImage(string n_image), fancy_frame(Image image),  Add_fancy(string n_image), 
+simple_frame(Image n_image), white_frame(Image n_image), Add_whiteframe(string n_image),Add_simple(string n_image), Frame(string n_image),
+ bluer_Image(Image n_image), bluring(string n_image), purple(Image n_image) and purple_Image(string n_image).*/
 // Version : v1.0
-// Date    : 27/03/2024
+// Date    : 15/04/2024
+//Main Diagram: https://drive.google.com/file/d/1p0yfp9qQ9rVC8MreWL3JwsKK2DOtZQGa/view?usp=sharing
+//git hup: https://github.com/AbdullahSharaawy/Photoshop
 #include<fstream>
 #include "Image_Class.h"
 #include<string>
@@ -45,7 +51,9 @@ int ReadIndex(string message , int diminsion);
 Image Crop(string n_image);
 Image ret_180(Image n_image);
 void rotat_by180(string m_image);
+Image ret_90(Image n_imame);
 Image by_90(Image n_image);
+Image ret_90(Image n_imame);
 Image by_270(Image n_image);
 void ret_by270(string n_image);
 void Rotation(string n_image);
@@ -65,6 +73,9 @@ Image x_ray(string n_image);
 void X_Ray( string n_image);
 Image TV(string n_image);
 void tv( string n_image);
+void MergeImages(string image1);
+Image EdgesDetection(string n_image);
+void detectedge(string n_image);
 void StartPhotoshop();
 
 int main()
@@ -92,10 +103,12 @@ void StartPhotoshop()
     cout <<"11] Purple\n";
     cout <<"12] Television Screen\n";
     cout <<"13] X-Ray\n";
+    cout<<"14] Merge\n";
+    cout<<"15] Edge Detect\n";
     cout<<"16] Exist \n";
     do
     {
-        cout<<"please enter a number from 1 to 13 ! ";
+        cout<<"please enter a number from 1 to 16 ! ";
         cin>>choise;
         //input your choise agian if it is not valid
         if(cin.fill())
@@ -105,6 +118,8 @@ void StartPhotoshop()
             continue;
         }
     } while (choise !=1 && choise !=2 && choise !=3 && choise !=4 && choise !=5 && choise !=6 && choise !=7 && choise !=8 && choise !=9 &&choise!=10&&choise!=11&&choise!=12&&choise!=13 &&choise!=14&&choise!=15&&choise!=16);
+    
+    
     switch (choise)
     {
         case 1:
@@ -129,7 +144,7 @@ void StartPhotoshop()
         case 7:
             Crop_(n_image);
             break;
-        case 8: 
+        case 8:
             Rotation(n_image);
             break;
         case 9:
@@ -146,6 +161,12 @@ void StartPhotoshop()
             break;
         case 13:
             X_Ray(n_image);
+            break;
+        case 14:
+            MergeImages(n_image);
+            break;
+        case 15:
+            detectedge(n_image);
             break;
         case 16:
             return;
@@ -746,49 +767,49 @@ void change_diminsions(float n_width , float n_height , string n_image)
 void Rotation(string n_image)
 {
     string choice;
-            cout << "1]Rotate by 90 degrees\n";
-            cout << "2]Rotate by 180 degrees\n";
-            cout << "3]Rotate by 270 degrees\n";
-            cin >> choice;
-            while (choice != "1" && choice != "2" && choice != "3") {
-                cout << "invalid enter 1 , 2 or 3\n";
-                cin >> choice;
-            }
-            switch (stoi(choice)) {
-                case 1:
-                    by_90(n_image);
-                    break;
+    cout << "1]Rotate by 90 degrees\n";
+    cout << "2]Rotate by 180 degrees\n";
+    cout << "3]Rotate by 270 degrees\n";
+    cin >> choice;
+    while (choice != "1" && choice != "2" && choice != "3") {
+        cout << "invalid enter 1 , 2 or 3\n";
+        cin >> choice;
+    }
+    switch (stoi(choice)) {
+        case 1:
+            by_90(n_image);
+            break;
 
-                case 2:
-                    rotat_by180(n_image);
-                    break;
-                case 3:
-                    ret_by270(n_image);
-                    break;}
+        case 2:
+            rotat_by180(n_image);
+            break;
+        case 3:
+            ret_by270(n_image);
+            break;}
 }
 void Frame(string n_image)
 {
     string  n;
-            cout <<"1]Add a simple frame \n";
-            cout <<"2]Add a white frame \n";
-            cout <<"3]Add a fancy frame \n";
-            cin>>n;
-            while (n!="1"&&n!="2"&&n!="3")
-            {
-                cout <<"invalid enter 1 , 2 or 3\n";
-                cin>>n;
-            }
-            switch (stoi(n)) {
-                case 1:
-                    Add_simple(n_image);
-                    break;
-                case 2:
-                    Add_whiteframe(n_image);
-                    break;
-                case 3:
-                    Add_fancy(n_image);
-                    break;
-            }
+    cout <<"1]Add a simple frame \n";
+    cout <<"2]Add a white frame \n";
+    cout <<"3]Add a fancy frame \n";
+    cin>>n;
+    while (n!="1"&&n!="2"&&n!="3")
+    {
+        cout <<"invalid enter 1 , 2 or 3\n";
+        cin>>n;
+    }
+    switch (stoi(n)) {
+        case 1:
+            Add_simple(n_image);
+            break;
+        case 2:
+            Add_whiteframe(n_image);
+            break;
+        case 3:
+            Add_fancy(n_image);
+            break;
+    }
 }
 void Flip(string n_image)
 {
@@ -797,44 +818,44 @@ void Flip(string n_image)
     cout<<"2] fliped horizontal\n";
     cin>>choice;
     while (choice!="1"&&choice!="2")
-            {
-                cout <<"invalid enter 1 , 2 \n";
-                cin>>choice;
-            }
-            switch (stoi(choice)) {
-                case 1:
-                    FlippedVertical(n_image);
-                    break;
-                case 2:
-                    FlippedHorizontal(n_image);
-                    break;
-            }
-    
-    
-    
+    {
+        cout <<"invalid enter 1 , 2 \n";
+        cin>>choice;
+    }
+    switch (stoi(choice)) {
+        case 1:
+            FlippedVertical(n_image);
+            break;
+        case 2:
+            FlippedHorizontal(n_image);
+            break;
+    }
+
+
+
 }
 Image x_ray(string n_image)
 {
     // Open the image
-  Image image(n_image);
-  // Create a new image for the adjusted result
-  Image new_image(image.width, image.height);
+    Image image(n_image);
+    // Create a new image for the adjusted result
+    Image new_image(image.width, image.height);
 
-  
-  // Iterate through each pixel and adjust brightness
-  for (int i = 0; i < image.width; i++) {
-    for (int j = 0; j < image.height; j++) {
-      for (int channel = 0; channel < 3; channel++) {
-        if(channel==0)
-        new_image(i,j,channel)=255;
-        if(channel==1)
-        new_image(i,j,channel)=-image(i,j,channel)+255;
-        if(channel==2)
-        new_image(i,j,channel)=-image(i,j,channel)+255;
-      }
+
+    // Iterate through each pixel and adjust brightness
+    for (int i = 0; i < image.width; i++) {
+        for (int j = 0; j < image.height; j++) {
+            for (int channel = 0; channel < 3; channel++) {
+                if(channel==0)
+                    new_image(i,j,channel)=255;
+                if(channel==1)
+                    new_image(i,j,channel)=-image(i,j,channel)+255;
+                if(channel==2)
+                    new_image(i,j,channel)=-image(i,j,channel)+255;
+            }
+        }
     }
-  }
-return new_image;
+    return new_image;
 }
 void X_Ray( string n_image)
 {
@@ -844,35 +865,153 @@ Image TV(string n_image)
 {
     int counter=2;
     // Open the image
-  Image image(n_image);
-  // Create a new image for the adjusted result
-  Image new_image(image.width, image.height);
+    Image image(n_image);
+    // Create a new image for the adjusted result
+    Image new_image(image.width, image.height);
 
-  
-  // Iterate through each pixel and adjust brightness
-  for (int i = 0; i < image.width; i++) {
-    for (int j = 0; j < image.height; j++) {
-        if(j%counter!=0 ){
-      for (int channel = 0; channel < 3; channel++) {
-        if(channel==0)
-        new_image(i,j,channel)=image(i,j,channel)/2;
-        else if(channel==1)
-        new_image(i,j,channel)=image(i,j,channel)/2;
-        else if(channel==2)
-        new_image(i,j,channel)=image(i,j,channel)/2;
-      }
-      
+
+    // Iterate through each pixel and adjust brightness
+    for (int i = 0; i < image.width; i++) {
+        for (int j = 0; j < image.height; j++) {
+            if(j%counter!=0 ){
+                for (int channel = 0; channel < 3; channel++) {
+                    if(channel==0)
+                        new_image(i,j,channel)=image(i,j,channel)/2;
+                    else if(channel==1)
+                        new_image(i,j,channel)=image(i,j,channel)/2;
+                    else if(channel==2)
+                        new_image(i,j,channel)=image(i,j,channel)/2;
+                }
+
+            }
+            else{
+                for (int channel = 0; channel < 3; channel++) {
+                    new_image(i,j,channel)=image(i,j,channel);
+                }
+            }
         }
-        else{
-        for (int channel = 0; channel < 3; channel++) {
-new_image(i,j,channel)=image(i,j,channel);
-        }
-        }
-      }
     }
- return new_image; 
+    return new_image;
 }
 void tv( string n_image)
 {
     Save(n_image,TV(   n_image));
+}
+Image EdgesDetection(string n_image) {
+    Image image(n_image);
+    int gx;
+    int gy;
+    for (int i = 0; i < image.width; i++) {
+        for (int j = 0; j < image.height; j++) {
+            unsigned int grayscale = 0;
+            for (int k = 0; k < 3; k++) {
+                if (k == 0) {
+                    grayscale += 0.21 * image(i, j, k);
+                } else if (k == 1) {
+                    grayscale += 0.72 * image(i, j, k);
+                } else {
+                    grayscale += 0.07 * image(i, j, k);
+                }
+            }
+            for (int k = 0; k < 3; k++) {
+                image(i, j, k) = grayscale;
+            }
+        }
+    }
+    for (int i = 0; i < image.width - 1; i++) {
+        for (int j = 0; j < image.height - 1; j++) {
+            for (int k = 0; k < 3; k++) {
+                gx = image(i, j, k) - image(i + 1, j + 1, k);
+                gy = image(i + 1, j, k) - image(i, j + 1, k);
+                image(i, j, k) = sqrt(gx * gx + gy * gy);
+                if (image(i, j, k) > 255) {
+                    image(i, j, k) = 255;
+                } else if (image(i, j, k) < 0) {
+                    image(i, j, k) = 0;
+                }
+                image(i, j, k) = 255 - image(i, j, k);
+            }
+        }
+    }
+    return image;
+}
+void detectedge(string n_image){
+    Save(n_image,EdgesDetection(n_image));
+}
+void MergeImages(string image1) {
+    cout<<"enter second image \n";
+    string image2;
+    image2=ReadFileName();
+    Image firstimage(image1);
+    Image secondimage(image2);
+    if(firstimage.width != secondimage.width||firstimage.height != secondimage.height){
+        cout<<"they are not the same size \n";
+        cout<<"enter new width for both images:";
+        string newwidth;
+        getline(cin,newwidth);
+        regex validation2("[ ]*[0-9]*[1-9]+[0-9]*[ ]*");
+        while(!regex_match(newwidth,validation2)){
+            cout<<"invalid,try again:";
+            getline(cin,newwidth);
+        }
+        cout<<"enter new height for both images:";
+        string newheight;
+        getline(cin,newheight);
+        regex validation1("[ ]*[0-9]*[1-9]+[0-9]*[ ]*");
+        while(!regex_match(newheight,validation1)){
+            cout<<"invalid,try again:";
+            getline(cin,newheight);
+        }
+        double newwidthint = stoi(newwidth);
+        double newheightint = stoi(newheight);
+        double ratio1 = firstimage.width / newwidthint;
+        double ratio2 = firstimage.height / newheightint;
+        Image newfirstimage(newwidthint,newheightint);
+        for(int i = 0;i < newwidthint-1;i++){
+            for(int j = 0;j < newheightint-1;j++){
+                for(int k = 0;k < 3;k++){
+                    newfirstimage(i,j,k) = firstimage(round(i*ratio1),round(j*ratio2),k);
+                }
+            }
+        }
+        newfirstimage.saveImage(image1);
+        double ratio3 = secondimage.width / newwidthint;
+        double ratio4 = secondimage.height / newheightint;
+        Image newsecondimage(newwidthint,newheightint);
+        for(int i = 0;i < newwidthint-1;i++){
+            for(int j = 0;j < newheightint-1;j++){
+                for(int k = 0;k < 3;k++){
+                    newsecondimage(i,j,k) = secondimage(round(i*ratio3),round(j*ratio4),k);
+                }
+            }
+        }
+        newsecondimage.saveImage(image2);
+        cout<<"give the name to the merged image:";
+        string mergedname;
+        mergedname=ReadFileName();
+        Image merged(newwidthint,newheightint);
+        for(int i = 0;i < newwidthint;i++){
+            for(int j = 0;j < newheightint;j++){
+                for(int k = 0;k < 3;k++){
+                    merged(i,j,k) = 0.5*(newfirstimage(i,j,k)+newsecondimage(i,j,k));
+                }
+            }
+        }
+        merged.saveImage(mergedname);
+    }
+    else{
+        cout<<"give the name to the merged image:";
+        string mergedname;
+        mergedname=ReadFileName();
+        Image merged(firstimage.width,firstimage.height);
+        for(int i = 0;i < firstimage.width;i++){
+            for(int j = 0;j < firstimage.height;j++){
+                for(int k = 0;k < 3;k++){
+                    merged(i,j,k) = 0.5*(firstimage(i,j,k)+secondimage(i,j,k));
+                }
+            }
+        }
+        merged.saveImage(mergedname);
+    }
+    StartPhotoshop();
 }
